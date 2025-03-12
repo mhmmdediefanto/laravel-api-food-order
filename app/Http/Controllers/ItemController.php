@@ -27,6 +27,8 @@ class ItemController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => 'required',
+            'category' => 'required',
+            'description' => 'nullable',
             'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg|max:2048',
         ]);
 
