@@ -88,13 +88,13 @@ class ItemController extends Controller
             return response()->json([
                 'message' => 'Data produk not found',
                 'status' => 404
-            ]);
+            ], 404);
         }
 
         return response()->json([
             'message' => 'Data produk',
             'data' => $produkId,
             'status' => 200,
-        ]);
+        ], 200);
     }
 }
