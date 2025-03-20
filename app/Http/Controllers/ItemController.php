@@ -80,4 +80,21 @@ class ItemController extends Controller
             throw $th;
         }
     }
+
+    public function show($id)
+    {
+        $produkId = Item::find($id);
+        if (!$produkId) {
+            return response()->json([
+                'message' => 'Data produk not found',
+                'status' => 404
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Data produk',
+            'data' => $produkId,
+            'status' => 200,
+        ]);
+    }
 }

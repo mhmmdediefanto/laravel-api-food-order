@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/items', [ItemController::class, 'index'])->middleware('able-create-item');
     Route::post('/items', [ItemController::class, 'store'])->middleware('able-create-item');
+    Route::get('/items/{id}', [ItemController::class, 'show'])->middleware('able-create-item');
     Route::patch('/items/{item}',  [ItemController::class, 'update'])->middleware('able-create-item');
 
     //order
