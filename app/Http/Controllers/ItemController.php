@@ -88,13 +88,35 @@ class ItemController extends Controller
             return response()->json([
                 'message' => 'Data produk not found',
                 'status' => 404
-            ], 404);
+            ], 200);
         }
 
         return response()->json([
             'message' => 'Data produk',
             'data' => $produkId,
             'status' => 200,
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $item = Item::find($id);
+        if (!$item) {
+            return response()->json([
+                'message' => 'Data produk not found',
+                'status' => 404
+            ], 200);
+        }
+
+        if ($item->image) {
+            Storage::delete($item->image);
+        }
+
+        $item->delete();
+
+        return response()->json([
+            'message' => 'Data produk deleted successfully',
+            'status' => 200
         ], 200);
     }
 }

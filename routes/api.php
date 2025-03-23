@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/items', [ItemController::class, 'store'])->middleware('able-create-item');
     Route::get('/items/{id}', [ItemController::class, 'show'])->middleware('able-create-item');
     Route::patch('/items/{item}',  [ItemController::class, 'update'])->middleware('able-create-item');
+    Route::delete('/items/delete/{id}' , [ItemController::class, 'destroy'])->middleware('able-create-item');
 
     //order
     Route::post('/order/{id}/set-as-done', [OrderController::class, 'setAsDone'])->middleware('able-finish-order');
