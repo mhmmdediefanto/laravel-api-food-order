@@ -29,7 +29,7 @@ class ItemController extends Controller
             'price' => 'required',
             'category' => 'required',
             'description' => 'nullable',
-            'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg|max:2048',
+            'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg,webp|max:2048',
         ]);
 
         if ($request->image) {
@@ -54,7 +54,7 @@ class ItemController extends Controller
             $rules = [
                 'name' => 'required|max:255',
                 'price' => 'required',
-                'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg|max:2048',
+                'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg,webp|max:2048',
             ];
 
             $validatedData = $request->validate($rules);
