@@ -20,12 +20,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/items', [ItemController::class, 'store'])->middleware('able-create-item');
     Route::get('/items/{id}', [ItemController::class, 'show'])->middleware('able-create-item');
     Route::patch('/items/{item}',  [ItemController::class, 'update'])->middleware('able-create-item');
-    Route::delete('/items/delete/{id}' , [ItemController::class, 'destroy'])->middleware('able-create-item');
+    Route::delete('/items/delete/{id}', [ItemController::class, 'destroy'])->middleware('able-create-item');
 
     //order
     Route::post('/order/{id}/set-as-done', [OrderController::class, 'setAsDone'])->middleware('able-finish-order');
     Route::post('/order/{id}/set-as-paid', [OrderController::class, 'setAsPaid'])->middleware('able-pay-order');
-    Route::get('/order', [OrderController::class, 'index'])->middleware('able-create-order');
-    Route::get('/order/{id}', [OrderController::class, 'showDetail'])->middleware('able-create-order');
+    Route::get('/order', [OrderController::class, 'index'])->middleware(['able-create-order']);
+    Route::get('/order/{id}', [OrderController::class, 'showDetail'])->middleware(['able-create-order']);
     Route::post('/order', [OrderController::class, 'store'])->middleware('able-create-order');
 });
