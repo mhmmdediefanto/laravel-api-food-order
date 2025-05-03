@@ -99,7 +99,7 @@ class OrderController extends Controller
             $order = Order::create($validatedData);
             collect($validatedData['items'])->each(function ($item) use ($order) {
                 $ordered = Item::find($item['id']);
-               
+
                 $item['qty'] = $item['qty'] ?? 1;
                 if ($ordered) {
 
@@ -209,5 +209,35 @@ class OrderController extends Controller
                 'status' => 500
             ], 500);
         }
+    }
+
+    public function report(Request $request)
+    {
+        $orders = Order::with([
+            'waiters' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'cashier' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ])->select('id', 'customer_name', 'table_no', 'order_date', 'order_time', 'status', 'total_amount', 'cashier_id', 'waiters_id');
+
+        if ($request->has('month')) {
+            $orders->whereMonth('order_date', $request->month);
+        }
+
+        $result = [
+            'total_order' => $orders->count(),
+            'max_order' => $orders->max('total_amount'),
+            'min_order' => $orders->min('total_amount'),
+            'total_revenue' => $orders->sum('total_amount')
+        ];
+
+        return response()->json([
+            'message' => 'Order report',
+            'data' => $orders->get(),
+            'result' => $result,
+            'status' => 200
+        ]);
     }
 }
